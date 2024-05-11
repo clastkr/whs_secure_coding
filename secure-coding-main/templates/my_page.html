@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 페이지</title>
+</head>
+<body>
+    <h1>마이 페이지</h1>
+    <h2>구매 내역</h2>
+    <ul>
+        {% for purchase in purchases %}
+            <li>
+                <p>상품: {{ purchase['product_id'] }}</p>
+                <p>구매 시간: {{ purchase['purchase_time'] }}</p>
+                <p>결제 완료 여부: {{ purchase['payment_completed'] }}</p>
+                <p>집 주소: {{ purchase['user_address'] }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

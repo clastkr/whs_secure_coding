@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 구매</title>
+</head>
+<body>
+    
+    <h1>{{ product['name'] }} 구매하기</h1>
+    <p>가격: {{ product['price'] }}</p>
+    <img src="{{ product['image'] }}" alt="{{ product['name'] }}" width="200">
+    <form action="/purchase/{{ product['id'] }}" method="post">
+        <label for="address">집 주소:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="name">이름:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="phoneNumber">핸드폰 번호:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
+
+        <label for="email">email:</label>
+        <input type="text" id="email" name="email" required><br><br>
+
+        <button onclick="submitForm(); return false;">결제하기</button>
+
+    </form>
+    <script>
+    function submitForm() {
+        var address = document.getElementById("address").value;
+        var name = document.getElementById("name").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var email = document.getElementById("email").value;
+
+        var url = "/checkout?name=" + encodeURIComponent(name) + 
+            "&address=" + encodeURIComponent(address) + 
+            "&phoneNumber=" + encodeURIComponent(phoneNumber) + 
+            "&email=" + encodeURIComponent(email);
+
+        window.location.href = url;
+    }
+    </script>
+</body>
+</html>

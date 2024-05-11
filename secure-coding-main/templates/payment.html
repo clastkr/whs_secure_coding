@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>결제 페이지</title>
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+    <script>
+        const clientKey = "#클라이언트키#";
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const phoneNumber = urlParams.get('phoneNumber');
+        const email = urlParams.get('email');
+        const amount = urlParams.get('amount');
+        const userId = urlParams.get('userId');
+        const address = urlParams.get('address');
+        const orderId = generateOrderId(); // 고유한 상품 ID 생성
+
+        // TossPayments 객체 초기화
+        var tossPayments = TossPayments(clientKey);
+
+        // 결제창 호출 함수
+        function openPaymentWindow() {
+            // 결제창 호출
+            tossPayments.requestPayment('계좌이체', {
+                amount: amount,
+                orderId: orderId,
+                orderName: name,
+                customerName: userId,  // 세션에 저장된 사용자명 사용
+                successUrl: '/success',
+                failUrl: '/cancel',
+            });
+        }
+
+        // 고유한 상품 ID 생성 함수
+        function generateOrderId() {
+            return Math.floor(Math.random() * 10000000000000000).toString();
+        }
+    </script>
+</head>
+<body onload="openPaymentWindow()">
+    <h1>결제 처리 중...</h1>
+</body>
+</html>
